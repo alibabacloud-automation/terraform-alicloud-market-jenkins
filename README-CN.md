@@ -1,16 +1,13 @@
-Terraform Module for creating Jenkins based on Alibaba Cloud market place image and attach ECS to SLB. 
 terraform-alicloud-market-jenkins
--------
+=====================================================================
 
-English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-market-jenkins/blob/master/README-CN.md)
+本 Terraform 模块将使用 Jenkins 镜像来创建 ECS 实例，并将实例绑定到 SLB，如果域名变量存在，则会将域名与 SLB 关联。
 
-Terraform Module used to create ECS Instance based on Alibaba Cloud market place image and attach ECS to SLB, if domain_name exits, will associate SLB with domain. 
+## Terraform 版本
 
-## Terraform versions
+本模板要求使用版本 Terraform 0.12 和 阿里云 Provider 1.72.0+。
 
-This module requires Terraform 0.12 and Terraform Provider AliCloud 1.72.0+.
-
-## Usage
+## 用法
 
 ```hcl
 module "market-jenkins" {
@@ -38,30 +35,29 @@ module "market-jenkins" {
 }
 ```
 
-## Examples
+## 示例
 
-* [complete example](https://github.com/terraform-alicloud-modules/terraform-alicloud-market-jenkins/tree/master/examples/complete)
+* [Jenkins 完整示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-market-jenkins/tree/master/examples/complete)
 
-## Notes
+## 注意事项
 
-* This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`.
-If you have not set them yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
+* 本 Module 使用的 AccessKey 和 SecretKey 可以直接从 `profile` 和 `shared_credentials_file` 中获取。如果未设置，可通过下载安装 [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) 后进行配置。
 
-Submit Issues
--------------
-If you have any problems when using this module, please opening a [provider issue](https://github.com/terraform-providers/terraform-provider-alicloud/issues/new) and let us know.
+提交问题
+------
+如果在使用该 Terraform Module 的过程中有任何问题，可以直接创建一个 [Provider Issue](https://github.com/terraform-providers/terraform-provider-alicloud/issues/new)，我们将根据问题描述提供解决方案。
 
-**Note:** There does not recommend to open an issue on this repo.
+**注意:** 不建议在该 Module 仓库中直接提交 Issue。
 
-Authors
+作者
 -------
 Created and maintained by Li Xue(lixue_9250@163.com) and He Guimin(@xiaozhu36, heguimin36@163.com)
 
-License
+许可
 ----
 Apache 2 Licensed. See LICENSE for full details.
 
-Reference
+参考
 ---------
 * [Terraform-Provider-Alicloud Github](https://github.com/terraform-providers/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
