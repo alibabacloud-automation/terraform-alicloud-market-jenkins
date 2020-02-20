@@ -23,7 +23,7 @@ variable "skip_region_validation" {
 variable "product_keyword" {
   description = "The name keyword of Market Product used to fetch the specified product image."
   type        = string
-  default     = "Jenkins自动化部署"
+  default     = "Jenkins"
 }
 variable "product_supplier_name_keyword" {
   description = "The name keyword of Market Product supplier name used to fetch the specified product image."

@@ -24,13 +24,14 @@ data "alicloud_market_product" "product" {
 
 locals {
   create_slb         = var.create_instance ? var.create_slb : false
-  allocate_public_ip = !var.create_instance ? false : local.create_slb == true ? false : var.allocate_public_ip
+  allocate_public_ip = ! var.create_instance ? false : local.create_slb == true ? false : var.allocate_public_ip
   bind_domain        = local.create_slb ? var.bind_domain : local.allocate_public_ip ? var.bind_domain : false
+  this_app_url       = var.bind_domain ? format("%s%s", var.host_record != "" ? "${var.host_record}." : "", var.domain_name) : var.create_slb ? format("%s:8080", concat(alicloud_slb.this.*.address, [""])[0]) : var.create_instance ? format("%s:8080", concat(alicloud_instance.this.*.public_ip, [""])[0]) : ""
 }
 
 resource "alicloud_instance" "this" {
   count           = var.create_instance ? 1 : 0
-  image_id        = var.image_id != "" ? var.image_id : data.alicloud_market_product.product.product.0.skus.0.images.1.image_id
+  image_id        = var.image_id != "" ? var.image_id : data.alicloud_market_product.product.product.0.skus.0.images.0.image_id
   instance_type   = var.ecs_instance_type
   security_groups = var.security_group_ids
 
@@ -56,6 +57,19 @@ resource "alicloud_instance" "this" {
       Application = "Market-Jenkins"
     }, var.tags,
   )
+
+  dynamic "data_disks" {
+    for_each = var.data_disks
+    content {
+      name                 = lookup(data_disks.value, "name", )
+      size                 = lookup(data_disks.value, "size", 20)
+      category             = lookup(data_disks.value, "category", "cloud_efficiency")
+      encrypted            = lookup(data_disks.value, "encrypted", null)
+      snapshot_id          = lookup(data_disks.value, "snapshot_id", null)
+      delete_with_instance = lookup(data_disks.value, "delete_with_instance", null)
+      description          = lookup(data_disks.value, "description", null)
+    }
+  }
 }
 
 resource "alicloud_slb" "this" {
