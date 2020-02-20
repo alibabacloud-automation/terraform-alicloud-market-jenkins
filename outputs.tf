@@ -125,20 +125,20 @@ output "this_slb_listener_server_group_id" {
 # Dns record outputs
 output "this_dns_record_host_record" {
   description = "The host_record of dns record."
-  value       = concat(alicloud_dns_record.record.*.host_record, [""])[0]
+  value       = concat(alicloud_dns_record.this.*.host_record, [""])[0]
 }
 
 output "this_dns_record_name" {
   description = "The domain of dns record."
-  value       = concat(alicloud_dns_record.record.*.name, [""])[0]
+  value       = concat(alicloud_dns_record.this.*.name, [""])[0]
 }
 
 output "this_dns_record_id" {
   description = "The id of dns record."
-  value       = concat(alicloud_dns_record.record.*.id, [""])[0]
+  value       = concat(alicloud_dns_record.this.*.id, [""])[0]
 }
 
-output "this_wordpress_url" {
-  description = "The url of wordpress."
-  value       = format("http://%s%s", var.host_record != "" ? "${var.host_record}." : "", var.domain_name)
+output "this_jenkins_url" {
+  description = "The url of Jenkins."
+  value       = format("http://%s", local.this_app_url)
 }
