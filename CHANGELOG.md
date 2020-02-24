@@ -1,4 +1,9 @@
 ## 1.1.0 (Unreleased)
+
+IMPROVEMENTS：
+
+- modify the provider version, and add parameter `profile` [GH-5]( https://github.com/terraform-alicloud-modules/terraform-alicloud-market-jenkins/pull/5)
+
 ## 1.0.0 (February 24, 2020)
 
 IMPROVEMENTS：

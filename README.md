@@ -8,7 +8,7 @@ Terraform Module used to create ECS Instance based on Alibaba Cloud market place
 
 ## Terraform versions
 
-This module requires Terraform 0.12 and Terraform Provider AliCloud 1.72.0+.
+This module requires Terraform 0.12 and Terraform Provider AliCloud 1.71.0+.
 
 ## Usage
 
@@ -16,8 +16,9 @@ Building the Jenkins using market place image
 
 ```hcl
 module "market_jenkins_with_ecs" {
-  source = "terraform-alicloud-modules/market-jenkins/alicloud"
-  region = "cn-beijing"
+  source  = "terraform-alicloud-modules/market-jenkins/alicloud"
+  region  = "cn-beijing"
+  profile = "Your-Profile-Name"
 
   product_keyword            = "Jenkins自动化部署"
   product_suggested_price    = 0
@@ -43,8 +44,10 @@ Building the Jenkins using market place image and bind a slb
 
 ```hcl
 module "market_jenkins_with_slb" {
-  source = "terraform-alicloud-modules/market-jenkins/alicloud"
-  region = "cn-beijing"
+  source  = "terraform-alicloud-modules/market-jenkins/alicloud"
+  region  = "cn-beijing"
+  profile = "Your-Profile-Name"
+
 
   product_keyword            = "Jenkins"
   product_suggested_price    = 0
@@ -67,8 +70,9 @@ Building the Jenkins using market place image and bind a slb and dns
 
 ```hcl
 module "market_jenkins_with_bind_dns" {
-  source = "terraform-alicloud-modules/market-jenkins/alicloud"
-  region = "cn-beijing"
+  source  = "terraform-alicloud-modules/market-jenkins/alicloud"
+  region  = "cn-beijing"
+  profile = "Your-Profile-Name"
 
   ecs_instance_name     = "jenkins-instance"
   ecs_instance_password = "YourPassword123"

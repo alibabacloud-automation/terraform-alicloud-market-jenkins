@@ -1,3 +1,7 @@
+variable "profile" {
+  default = "default"
+}
+
 variable "region" {
   default = "cn-beijing"
 }
@@ -37,8 +41,9 @@ module "security_group" {
 }
 
 module "market_jenkins_with_ecs" {
-  source = "../.."
-  region = var.region
+  source  = "../.."
+  region  = var.region
+  profile = var.profile
 
   ecs_instance_name          = "jenkins-instance"
   ecs_instance_password      = "YourPassword123"
@@ -58,8 +63,9 @@ module "market_jenkins_with_ecs" {
 
 // Create a new slb to attach ecs instances
 module "market_jenkins_with_slb" {
-  source = "../.."
-  region = var.region
+  source  = "../.."
+  region  = var.region
+  profile = var.profile
 
   ecs_instance_name     = "jenkins-instance"
   ecs_instance_password = "YourPassword123"
@@ -76,8 +82,9 @@ module "market_jenkins_with_slb" {
 
 // Bind a dns domain for this module
 module "market_jenkins_with_bind_dns" {
-  source = "../.."
-  region = var.region
+  source  = "../.."
+  region  = var.region
+  profile = var.profile
 
   ecs_instance_name     = "jenkins-instance"
   ecs_instance_password = "YourPassword123"
