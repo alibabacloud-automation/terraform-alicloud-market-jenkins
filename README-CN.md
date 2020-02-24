@@ -13,7 +13,7 @@ terraform-alicloud-market-jenkins
 
 ```hcl
 module "market_jenkins_with_ecs" {
-  source = "../.."
+  source = "terraform-alicloud-modules/market-jenkins/alicloud"
   region = "cn-beijing"
 
   product_keyword            = "Jenkins自动化部署"
@@ -40,7 +40,7 @@ module "market_jenkins_with_ecs" {
 
 ```hcl
 module "market_jenkins_with_slb" {
-  source = "../.."
+  source = "terraform-alicloud-modules/market-jenkins/alicloud"
   region = "cn-beijing"
 
   product_keyword            = "Jenkins"
@@ -64,7 +64,7 @@ module "market_jenkins_with_slb" {
 
 ```hcl
 module "market_jenkins_with_bind_dns" {
-  source = "../.."
+  source = "terraform-alicloud-modules/market-jenkins/alicloud"
   region = "cn-beijing"
 
   ecs_instance_name     = "jenkins-instance"
