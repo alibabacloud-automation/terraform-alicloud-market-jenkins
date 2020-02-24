@@ -5,7 +5,7 @@ terraform-alicloud-market-jenkins
 
 ## Terraform 版本
 
-本模板要求使用版本 Terraform 0.12 和 阿里云 Provider 1.72.0+。
+本模板要求使用版本 Terraform 0.12 和 阿里云 Provider 1.71.0+。
 
 ## 用法
 
@@ -13,8 +13,9 @@ terraform-alicloud-market-jenkins
 
 ```hcl
 module "market_jenkins_with_ecs" {
-  source = "terraform-alicloud-modules/market-jenkins/alicloud"
-  region = "cn-beijing"
+  source  = "terraform-alicloud-modules/market-jenkins/alicloud"
+  region  = "cn-beijing"
+  profile = "Your-Profile-Name"
 
   product_keyword            = "Jenkins自动化部署"
   product_suggested_price    = 0
@@ -40,8 +41,9 @@ module "market_jenkins_with_ecs" {
 
 ```hcl
 module "market_jenkins_with_slb" {
-  source = "terraform-alicloud-modules/market-jenkins/alicloud"
-  region = "cn-beijing"
+  source  = "terraform-alicloud-modules/market-jenkins/alicloud"
+  region  = "cn-beijing"
+  profile = "Your-Profile-Name"
 
   product_keyword            = "Jenkins"
   product_suggested_price    = 0
@@ -64,8 +66,9 @@ module "market_jenkins_with_slb" {
 
 ```hcl
 module "market_jenkins_with_bind_dns" {
-  source = "terraform-alicloud-modules/market-jenkins/alicloud"
-  region = "cn-beijing"
+  source  = "terraform-alicloud-modules/market-jenkins/alicloud"
+  region  = "cn-beijing"
+  profile = "Your-Profile-Name"
 
   ecs_instance_name     = "jenkins-instance"
   ecs_instance_password = "YourPassword123"
