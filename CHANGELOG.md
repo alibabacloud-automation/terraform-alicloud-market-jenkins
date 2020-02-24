@@ -1,6 +1,4 @@
 ## 1.1.0 (Unreleased)
-## 1.0.1 (February 24, 2020)
-
 IMPROVEMENTS：
 
 - add the parameter `profile` [GH-6]( https://github.com/terraform-alicloud-modules/terraform-alicloud-market-jenkins/pull/6)
