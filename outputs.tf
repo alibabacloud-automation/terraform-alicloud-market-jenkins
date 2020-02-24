@@ -16,7 +16,7 @@ output "this_ecs_instance_image_id" {
   value       = concat(alicloud_instance.this.*.image_id, [""])[0]
 }
 
-output "this_ecs_instance_instance_type" {
+output "this_ecs_instance_type" {
   description = "The type of instance."
   value       = concat(alicloud_instance.this.*.instance_type, [""])[0]
 }
@@ -83,12 +83,22 @@ output "this_ecs_instance_description" {
 
 output "this_ecs_instance_tags" {
   description = "The tags of ecs instance."
-  value       = alicloud_instance.this.*.tags
+  value       = concat(alicloud_instance.this.*.tags,[{}])[0]
 }
 
 output "this_ecs_instance_public_ip" {
   description = "The ecs instance public ip."
   value       = concat(alicloud_instance.this.*.public_ip, [""])[0]
+}
+
+output "this_ecs_instance_availability_zone" {
+  description = "The ecs instance avalability zone."
+  value       = concat(alicloud_instance.this.*.availability_zone, [""])[0]
+}
+
+output "this_ecs_instance_id" {
+  description = "The id of ecs instance."
+  value       = concat(alicloud_instance.this.*.id, [""])[0]
 }
 
 # SLB outputs
