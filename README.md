@@ -1,4 +1,4 @@
-Terraform Module for creating Jenkins based on Alibaba Cloud market place image and attach ECS to SLB. 
+Terraform Module for creating Jenkins based on Alibaba Cloud market place image and attach ECS to SLB.   
 terraform-alicloud-market-jenkins
 -------
 
