@@ -105,7 +105,7 @@ module "market_jenkins_with_bind_dns" {
 
 作者
 -------
-Created and maintained by Li Xue(lixue_9250@163.com) and He Guimin(@xiaozhu36, heguimin36@163.com)
+Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 许可
 ----
