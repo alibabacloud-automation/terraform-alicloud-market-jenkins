@@ -83,7 +83,7 @@ output "this_ecs_instance_description" {
 
 output "this_ecs_instance_tags" {
   description = "The tags of ecs instance."
-  value       = concat(alicloud_instance.this.*.tags,[{}])[0]
+  value       = concat(alicloud_instance.this.*.tags, [{}])[0]
 }
 
 output "this_ecs_instance_public_ip" {

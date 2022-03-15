@@ -16,7 +16,7 @@ data "alicloud_market_product" "product" {
 
 locals {
   create_slb         = var.create_instance ? var.create_slb : false
-  allocate_public_ip = ! var.create_instance ? false : local.create_slb == true ? false : var.allocate_public_ip
+  allocate_public_ip = !var.create_instance ? false : local.create_slb ? false : var.allocate_public_ip
   bind_domain        = local.create_slb ? var.bind_domain : local.allocate_public_ip ? var.bind_domain : false
   this_app_url       = var.bind_domain ? format("%s%s", var.host_record != "" ? "${var.host_record}." : "", var.domain_name) : var.create_slb ? format("%s:8080", concat(alicloud_slb.this.*.address, [""])[0]) : var.create_instance ? format("%s:8080", concat(alicloud_instance.this.*.public_ip, [""])[0]) : ""
 }
@@ -37,19 +37,12 @@ resource "alicloud_instance" "this" {
   private_ip = var.private_ip
 
   internet_charge_type       = var.internet_charge_type
-  internet_max_bandwidth_out = local.allocate_public_ip == true ? var.internet_max_bandwidth_out : 0
-  description                = "An ECS instance used to deploy Jenkins."
+  internet_max_bandwidth_out = local.allocate_public_ip ? var.internet_max_bandwidth_out : 0
+  description                = var.description
 
   resource_group_id   = var.resource_group_id
   deletion_protection = var.deletion_protection
-  force_delete        = true
-  tags = merge(
-    {
-      Created     = "Terraform"
-      Application = "Market-Jenkins"
-    }, var.tags,
-  )
-
+  force_delete        = var.force_delete
   dynamic "data_disks" {
     for_each = var.data_disks
     content {
@@ -62,15 +55,21 @@ resource "alicloud_instance" "this" {
       description          = lookup(data_disks.value, "description", null)
     }
   }
+  tags = merge(
+    {
+      Created     = "Terraform"
+      Application = "Market-Jenkins"
+    }, var.tags,
+  )
 }
 
 resource "alicloud_slb" "this" {
-  count         = local.create_slb ? 1 : 0
-  name          = var.slb_name
-  address_type  = "internet"
-  vswitch_id    = var.vswitch_id
-  specification = var.spec
-  bandwidth     = var.bandwidth
+  count              = local.create_slb ? 1 : 0
+  load_balancer_name = var.slb_name
+  address_type       = var.address_type
+  vswitch_id         = var.vswitch_id
+  load_balancer_spec = var.spec
+  bandwidth          = var.bandwidth
   tags = merge(
     {
       Created     = "Terraform"
@@ -84,13 +83,13 @@ resource "alicloud_slb_server_group" "this" {
   load_balancer_id = concat(alicloud_slb.this.*.id, [""])[0]
   servers {
     server_ids = alicloud_instance.this.*.id
-    port       = 8080
+    port       = var.port
   }
 }
 
 resource "alicloud_slb_listener" "this" {
   count            = local.create_slb ? 1 : 0
-  frontend_port    = 8080
+  frontend_port    = var.frontend_port
   load_balancer_id = concat(alicloud_slb.this.*.id, [""])[0]
   protocol         = "http"
   bandwidth        = var.bandwidth
@@ -100,7 +99,7 @@ resource "alicloud_slb_listener" "this" {
 resource "alicloud_dns_record" "this" {
   count       = local.bind_domain ? 1 : 0
   name        = var.domain_name
+  value       = var.create_slb ? concat(alicloud_slb.this.*.address, [""])[0] : concat(alicloud_instance.this.*.public_ip, [""])[0]
   host_record = var.host_record
   type        = var.type
-  value       = var.create_slb == true ? concat(alicloud_slb.this.*.address, [""])[0] : concat(alicloud_instance.this.*.public_ip, [""])[0]
 }
