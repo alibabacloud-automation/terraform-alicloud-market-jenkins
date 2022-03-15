@@ -1,8 +1,7 @@
-# Complete Market Jenkins example
+# Complete
 
 Configuration in this directory creates security_group and ECS Instance with image of jenkins.
 Data sources are used to discover existing instance type.
-
 
 ## Usage
 
@@ -16,14 +15,19 @@ $ terraform apply
 
 Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
 
+This example provides the tf variables file in the folder `tfvars`. If you want to create or update this example,
+you can run this example as the following commands:
+```bash
+$ terraform plan -var-file=tfvars/01-update.tfvars
+$ terraform apply -var-file=tfvars/01-update.tfvars
+```
+
+Also, you can add more variables files in the folder `tfvars`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Outputs
+## Requirements
 
-| Name | Description |
-|------|-------------|
-this_ecs_instance_public_ip
-| this\_ecs\_instance\_public\_ip | The public ip of ecs instance |
-| this\_slb\_address | The address of SLB |
-| this\_domain\_address | The address of domain |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.71.0 |
