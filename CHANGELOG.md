@@ -1,4 +1,7 @@
-## 1.2.0 (Unreleased)
+## 1.2.0 (August 06, 2024)
+
+- deprecate [GH-10](https://github.com/alibabacloud-automation/terraform-alicloud-market-jenkins/pull/10)
+
 ## 1.1.0 (December 10, 2021)
 
 ENHANCEMENTS:
